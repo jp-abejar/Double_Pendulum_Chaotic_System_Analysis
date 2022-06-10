@@ -52,14 +52,13 @@ class Double_Pendulum():
         self.oldVariables = np.zeros([self.Instances,self.dof], dtype = float)
         self.energies = np.zeros([self.numtimes,self.Instances],dtype=float)  
         self.AngularVel= np.zeros([self.Instances,self.maxCrossings],dtype = float )
-
         self.poincare = np.zeros((self.Instances,self.maxCrossings,2),dtype = float)
 
 
 
         self.M1 = self.Mass1
 
-        #Let's define variables
+    
         if d == 'dTheta1' or d == 'dTheta2':
             self.theta1 = 1 if d == 'dTheta1'  else 0
             self.theta2 = 1 if d == 'dTheta2'  else 0
@@ -121,7 +120,7 @@ class Double_Pendulum():
             self.Data = np.zeros([self.Instances,int(numPoints),self.dof],dtype=float) 
         
         while sum(self.ValidCounts) != 0 or (numPoints is not None and self.step < numPoints ) :
-            # print(self.counts,self.maxCrossings)
+            
             self.Lock = True
             self.ValidCounts = np.less(self.counts,self.maxCrossings)
             #The next four lines calculate derivatives at different times, and multiply the derivatives by the time step, to get the changes in the variables
@@ -182,15 +181,17 @@ class Double_Pendulum():
         
        
     def PoincareFunc(self,MassVar = 1):
+        
+        # Keeping the angles between pi and -pi
         self.newVariables[:,0:2] = self.newVariables[:,0:2] - 2*np.pi*np.greater(self.newVariables[:,0:2], np.pi)
         self.newVariables[:,0:2] = self.newVariables[:,0:2] + 2*np.pi* np.less(self.newVariables[:,0:2], -np.pi)
-        # print(newVariables[10,0],newVariables[10,1]*Mass1[10])
+        
         
         self.counts += np.less(self.oldVariables[:,MassVar],0) * np.greater(self.newVariables[:,MassVar],0) * np.less(abs(self.oldVariables[:,MassVar]),2.0) * self.ValidCounts
         self.cross = np.where( self.counts -self.prevCounts == 1)[0]
         if self.cross.size > 0:
             print(sum(self.ValidCounts))
-            # print(poincare[cross,counts[cross]-1,:],'\n\n',[newVariables[cross,0],newVariables[cross,2]])
+            
             self.poincare[self.cross,self.counts[self.cross]-1,:] = self.newVariables[self.cross,0 if MassVar else 1][0],self.newVariables[self.cross,2 if MassVar else 3][0]
                 
             self.AngularVel[self.cross,self.counts[self.cross]-1] = self.newVariables[self.cross,3]
@@ -310,7 +311,7 @@ class Double_Pendulum():
         else:
             print("Animation Parameter Disabled")
         
-    
+
 if __name__ == "__main__":
     print('Select:\nTest1:1\nTest2:2\nTest3:3\nTest4:4\nTest5:5\n\n')
     try:
