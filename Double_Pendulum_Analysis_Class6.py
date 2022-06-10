@@ -159,7 +159,7 @@ class Double_Pendulum():
                 
                
         if saveDat:
-            
+            #This block genreates a new directory for the dataset
             i = 0
             DoneMD = False
             while not DoneMD:
@@ -168,9 +168,10 @@ class Double_Pendulum():
                     DoneMD = True
                 except:
                     i += 1
-            np.save('/home/jabejar/Documents/Datasets/ds_%003i'%(i) + '/Parameters',np.array(self.params,dtype = object))
+                    
+                    
             
-                
+            np.save('/home/jabejar/Documents/Datasets/ds_%003i'%(i) + '/Parameters',np.array(self.params,dtype = object))
             
             if self.d == 'dTheta1' or self.d == 'dTheta2':
                 np.save('/home/jabejar/Documents/Datasets/ds_%003i'%(i) + '/Theta1_arr' if self.d == 'dTheta1' else 'Theta2_arr',self.ThetaVals)
@@ -198,6 +199,7 @@ class Double_Pendulum():
         self.oldVariables = self.newVariables
         self.prevCounts = self.counts*1
         
+        
     def derivatives(self,variables,params = None,t = None):
         
         
@@ -221,9 +223,9 @@ class Double_Pendulum():
 
         return np.array([omega1,omega2,omega1dot,omega2dot]).T
 
+
     def energy(self,variables,params = None, t = None):
        
-        
         #Unpack variables   
         theta1 = variables[:,0]
         theta2 = variables[:,1]   
@@ -236,6 +238,8 @@ class Double_Pendulum():
         U = (self.M)*self.g*self.L1*(1-np.cos(theta1)) + self.M2*self.g*self.L2*(1-np.cos(theta2))
         
         return KE+U 
+    
+    
     def PlotBifurcation(self,):
         
         if self.d != 'Single':
@@ -244,6 +248,8 @@ class Double_Pendulum():
             plt.xlabel('Mass1 [g]' if self.d == 'dMass' else r'$\theta$1 [rad]' if self.d == 'dTheta1' else r'$\theta$2 [rad]')
             plt.ylabel(r'$\omega$2 [rad/s]')
             plt.plot(self.Mass1 if self.d == 'dMass' else self.ThetaVals ,self.AngularVel,'.b',markersize=0.8)
+            
+            
     def PlotPoincare(self, n = 1):
         plt.figure()
         plt.title('Poincare Section for when Mass 2 goes through '+''r'$\theta$1 = 0')
