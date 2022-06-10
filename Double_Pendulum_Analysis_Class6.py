@@ -313,7 +313,10 @@ class Double_Pendulum():
     
 if __name__ == "__main__":
     print('Select:\nTest1:1\nTest2:2\nTest3:3\nTest4:4\nTest5:5\n\n')
-    input_TestVal = int(input('Your Selection:'))
+    try:
+        input_TestVal = int(input('Your Selection:'))
+    except:
+        input_TestVal = 10
     if input_TestVal == 1:
         """ Tests a single pendulum case and plots an animated simulation"""
         
@@ -356,7 +359,8 @@ if __name__ == "__main__":
         pendulumSet1.PlotPoincare()
     
     
-    
+    else:
+        print('Invalid Selection')
     
     
     
