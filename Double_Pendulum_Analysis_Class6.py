@@ -100,7 +100,7 @@ class Double_Pendulum():
 
 
 
-        #Now we do the Runge-Kutta Method
+        
         self.step = 0
         self.E =1
 
@@ -154,10 +154,12 @@ class Double_Pendulum():
             if numPoints is not None and self.step < numPoints:
                 self.Data[:,self.step,:] = self.newVariables
                 self.step +=1
+                
                
                 
                
         if saveDat:
+            
             #This block genreates a new directory for the dataset
             i = 0
             DoneMD = False
@@ -261,7 +263,7 @@ class Double_Pendulum():
             
             
     
-    def AnimatePendulums(self,):
+    def AnimatePendulum(self,):
         def init():
             self.Xp1.append(0)
             self.Yp1.append(0)
@@ -312,6 +314,7 @@ class Double_Pendulum():
             print("Animation Parameter Disabled")
         
 
+        
 if __name__ == "__main__":
     print('Select:\nTest1:1\nTest2:2\nTest3:3\nTest4:4\nTest5:5\n\n')
     try:
@@ -322,9 +325,9 @@ if __name__ == "__main__":
         """ Tests a single pendulum case and plots an animated simulation"""
         
         pendulumSet1 = Double_Pendulum(dt = 0.1, d = 'Single',Tht1=180, Tht2 = 168,M1 = 10,M2 = 0.3,L1 =2,L2=5,Anim = True)
-        thrd1 = Thread(target = pendulumSet1.RK4)
+        thrd1 = Thread(target = pendulumSet1.RK4, args = (10,True,))
         thrd1.start()
-        pendulumSet1.AnimatePendulums()
+        pendulumSet1.AnimatePendulum()
        
     elif input_TestVal == 2:
         """ Tests a dMass case where we plot the poincare sections for N mass values as well as the resulting Bifurcation diagram  """
