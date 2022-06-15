@@ -131,7 +131,8 @@ class Double_Pendulum():
             #Now that we've done the RK method and solved the ODE with the old time and data at the previous step, we up the time and step and store for the new time
             
             self.newVariables = self.oldVariables+k1/6+k2/3+k3/3+k4/6 #This is the Runge-Kutta estimate of the new values of theta and d(theta)/dt
-            
+            self.newVariables[:,0:2] = self.newVariables[:,0:2] - 2*np.pi*np.greater(self.newVariables[:,0:2], np.pi)
+            self.newVariables[:,0:2] = self.newVariables[:,0:2] + 2*np.pi* np.less(self.newVariables[:,0:2], -np.pi)
             
             if not self.Anim:
                 self.PoincareFunc(MassVar=1)
@@ -143,8 +144,7 @@ class Double_Pendulum():
                 
                 
             else:
-                self.newVariables[:,0:2] = self.newVariables[:,0:2] - 2*np.pi*np.greater(self.newVariables[:,0:2], np.pi)
-                self.newVariables[:,0:2] = self.newVariables[:,0:2] + 2*np.pi* np.less(self.newVariables[:,0:2], -np.pi)
+                
                 self.oldVariables = self.newVariables
                 self.Lock = False
                 
@@ -154,6 +154,8 @@ class Double_Pendulum():
             if numPoints is not None and self.step < numPoints:
                 self.Data[:,self.step,:] = self.newVariables
                 self.step +=1
+                if self.step%1000 == 0:
+                    print(self.step)
                 
                
                 
@@ -185,8 +187,8 @@ class Double_Pendulum():
     def PoincareFunc(self,MassVar = 1):
         
         # Keeping the angles between pi and -pi
-        self.newVariables[:,0:2] = self.newVariables[:,0:2] - 2*np.pi*np.greater(self.newVariables[:,0:2], np.pi)
-        self.newVariables[:,0:2] = self.newVariables[:,0:2] + 2*np.pi* np.less(self.newVariables[:,0:2], -np.pi)
+        # self.newVariables[:,0:2] = self.newVariables[:,0:2] - 2*np.pi*np.greater(self.newVariables[:,0:2], np.pi)
+        # self.newVariables[:,0:2] = self.newVariables[:,0:2] + 2*np.pi* np.less(self.newVariables[:,0:2], -np.pi)
         
         
         self.counts += np.less(self.oldVariables[:,MassVar],0) * np.greater(self.newVariables[:,MassVar],0) * np.less(abs(self.oldVariables[:,MassVar]),2.0) * self.ValidCounts
@@ -357,8 +359,8 @@ if __name__ == "__main__":
         """ Tests the save data feature where we input tyhe numPoints we want saved into the RK4 function.
             Note that the data can be accessed through the object after the RK4 algorithm terminates"""
             
-        pendulumSet1 = Double_Pendulum(dt = 0.01, d = 'dMass',maxMass = 40, minMass = 10,massFraction = 1,Tht1=10, Tht2 = 125,maxCrossings=50)
-        pendulumSet1.RK4(numPoints=10_000,saveDat=True)
+        pendulumSet1 = Double_Pendulum(dt = 0.01, d = 'dMass',maxMass = 20, minMass = 0.1,massFraction = 0.01,Tht1=10, Tht2 = 125,maxCrossings=1)
+        pendulumSet1.RK4(numPoints=100_000,saveDat=True)
         pendulumSet1.PlotBifurcation()
         pendulumSet1.PlotPoincare()
     
