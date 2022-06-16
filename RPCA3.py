@@ -1,3 +1,12 @@
+''' 
+This script was originally written by bagustris on GitHub and can be found @
+https://github.com/bagustris/scikit-learn_lanjut/blob/master/robust_pca.py
+
+The modifications made are to accomodate for multiprocessing and to return 
+project specific relevant data
+'''
+
+
 import numpy as np
 from sklearn.utils.validation import check_is_fitted
 from sklearn.utils.extmath import randomized_svd
