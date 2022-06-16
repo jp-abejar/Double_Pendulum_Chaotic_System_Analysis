@@ -14,7 +14,7 @@ import os
 class Double_Pendulum():
     
     def __init__(self,d = 'dMass',dt =0.1, maxTime = 5,maxMass = 10, minMass = 0.1,massFraction = 1 \
-                 , maxDegree =90, minDeg = 0.1,degFraction = 1, maxCrossings = 10 \
+                 , maxDegree =90, minDeg = 0.1,degFraction = 1, maxCrossings = 1 \
                      ,M1 =1,M2 =1,L1 =1,L2 = 1,g = 9.8,Tht1 = 1,Tht2 = 1,Anim = False):
         self.Anim = Anim # bool
         self.ani = None # intended to hold the animation function constant 
@@ -359,7 +359,7 @@ if __name__ == "__main__":
         """ Tests the save data feature where we input tyhe numPoints we want saved into the RK4 function.
             Note that the data can be accessed through the object after the RK4 algorithm terminates"""
             
-        pendulumSet1 = Double_Pendulum(dt = 0.01, d = 'dMass',maxMass = 20, minMass = 0.1,massFraction = 0.01,Tht1=10, Tht2 = 125,maxCrossings=1)
+        pendulumSet1 = Double_Pendulum(dt = 0.01, d = 'dMass',maxMass = 20, minMass = 0.1,massFraction = 0.01,Tht1=10, Tht2 = 125)
         pendulumSet1.RK4(numPoints=100_000,saveDat=True)
         pendulumSet1.PlotBifurcation()
         pendulumSet1.PlotPoincare()

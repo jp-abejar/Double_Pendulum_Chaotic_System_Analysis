@@ -55,6 +55,7 @@ class DB_Post_Analysis():
         return np.array([poincare,poincare2,poincare3,poincare4])
     
     def RPCA(self,):
+        ''' For future use'''
         from RPCA3 import rpca
         poincareData = dataObj.Poincare()
         org_shape = poincareData.shape
@@ -63,6 +64,8 @@ class DB_Post_Analysis():
         rpca_dat = rpca(M = rpcaInitData,max_iter=100)
         
         return rpca_dat,org_shape
+    
+    
     def Fourier_analysis(self,):
         fftv = []
         
@@ -99,6 +102,7 @@ if __name__ == "__main__":
             plt.xlim(0,5)
     '''
     
+    
    
     dataObj = DB_Post_Analysis('/home/jabejar/Documents/Datasets/ds_005')
     a = dataObj.dPendulum_data
@@ -124,41 +128,4 @@ if __name__ == "__main__":
     
     
     
-    '''
-    dataObj = DB_Post_Analysis('/home/jabejar/Documents/Datasets/ds_005')
-    
-    a = dataObj.Poincare()
-    
-    plt.figure()
-    plt.plot(a[0].T,a[2].T,'.',markersize = 0.5)
-    
-    
-    b,shape = dataObj.RPCA()
-    c = b[1].reshape(shape)
-    plt.figure()
-    plt.plot(c[0].T,c[2].T,'.',markersize = 0.5)
-    '''
-    
-    
-    
-    
-    
-    # svd = b[2]
-    
-    # U = svd[0]
-    # s = svd[1]
-    # Vt = svd[2]
-    
-    # incl = [1]
-    # print(incl)
-    # decModes = []
-    # s_temp = s*1
-    # for i in range(s.shape[0]):
-    #     if i not in incl:
-    #         s_temp[i] = 0
-            
-    
-    # SS = np.diag(s_temp)
-    # # RecL = np.dot(U, np.dot(S, V))
-    # decModes.append(np.dot(U, np.dot(SS, Vt)))
-    # decModes = np.array(decModes)
+ 
