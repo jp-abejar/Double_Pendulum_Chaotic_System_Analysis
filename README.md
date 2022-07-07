@@ -7,7 +7,7 @@ Replicating a Bifurcation Diagram for a Double Pendulum System
 	
 One very simple yet interesting system which is expected to manifest chaotic behavior is known as the double pendulum. It’s easy to see why this system is related to chaos when it is in motion since it is very difficult to predict successive positions through sole visual information. Using computational analysis, we can study this system and obtain results which are un-intuitive. One of which is a bifurcation diagram depicted in a computational physics book1 which relates the mass of the upper pendulum to the various angular velocities sampled when the lower pendulum crossed its equilibrium point. The goal here was entirely to replicate this diagram using the mechanics known to this system keeping in mind that the authors of this text are reputable and the results should be extremely similar if not exact.
 
-#I.Background
+# I.Background
 
 Chaotic motion is theorized to be unpredictable or random and therefore is an interesting topic in computational analysis. In theory, given all the initial conditions for a system we should be able to accurately predict any event which solely depends on the known initial conditions. This is the case for the double pendulum which is why it is possible to accurately predict motions of this system through computational analysis. The fact of the matter is that the system is considered to be both chaotic and deterministic because of its high sensitivity to initial conditions. Computationally, we are certain of our initial conditions but for all practical purposes we can never be 100% certain of these values which ultimately leads us to label the double pendulum (among other similar mechanical systems) as chaotic. 
 The most important characteristic of this system in the context in which it is studied here is the chaotic motion which it exhibits. Despite the system being considered chaotic, there are ways to analyze the data from such a system that yields peculiar patterns. Analyzing distinct properties of different trajectories can lead to bifurcations which display fractal patterns that vary depending on the variables chosen to be compared. We define fractal patterns as patterns that are recursive at infinite levels of magnification. 
@@ -21,14 +21,14 @@ Each pendulum acts as a driving force for the other so there is no need to imple
 
 
 
-                           ![alt text](https://github.com/jp-abejar/Double_Pendulum_Chaotic_System_Analysis/blob/main/Img/thtbif.png?raw=true)
+![alt text](https://github.com/jp-abejar/Double_Pendulum_Chaotic_System_Analysis/blob/main/Img/thtbif.png?raw=true)
 
 Fig2. Bifurcation diagram depicting angular velocity of lower pendulum vs mass of upper pendulum.1
 
 
 
 
-#II. Methods
+# II. Methods
 
 In order to obtain the desired result, it was found that the optimal algorithm for the task would be a fourth order Runga-Kutta algorithm2. Through applying the known equations for this system, this algorithm showed to output nearly conservative total energy where the losses were less than a factor of 10-7. This algorithm is sufficiently accurate for the task at hand.  Since the text depicting the bifurcation diagram does not provide much instruction to obtain the diagram as it is displayed, manipulating the initial conditions of the system was necessary to obtain the desired outcome. The equations used for this task were obtained from a fellow classmate since the primary task was to study the output of the system rather than getting the system to function properly. The differential equations for both the energy and the motion of the double pendulum system can be seen in the fourth citation4. 
 The system is initialized with zero kinetic energy, angle values where angle 1 is a small non-zero value and angle 2 is a much larger value. After testing several initial conditions, the values found to give a result closely related with the bifurcation diagram in the text were 10 degrees for angle 1 and 125 degrees for angle 2. The remaining parameters included a gravitational acceleration constant of 9.8, and both pendulums with a length of 1.0. In order to obtain various values of angular velocity for every mass, the system sampled for 70 values of angular velocity at the equilibrium point and repeated for mass values ranging from 0.1 to 14 with an interval of 0.001.  The equilibrium point here is defined where the individual pendulum angle is equal to zero (see figure 1). The angles are measured from pi to -pi, where the values are positive to the right of the equilibrium point and negative to the left of it. Since the algorithm doesn’t know our values have to be within those boundaries, it is important to set the condition to convert angle values that are beyond our boundary conditions to values that satisfy it. For this simulation, a time step of 0.001 was utilized in order to obtain better accuracy. The values for current and previous process in the algorithm were stored in two arrays for angle comparison purposes. Since the angle never exactly equaled zero, in order to obtain an angular velocity at that point, a condition was set to identify where the previous angle and the current angle were on opposite sides of the equilibrium point. When this was the case, the angular velocity at the current point was saved to an array which would later be graphically compared to an array holding all the values set for the mass range. The resulting image depicted a bifurcation diagram. 
@@ -43,7 +43,7 @@ The system is initialized with zero kinetic energy, angle values where angle 1 i
 
 
 
-#III. Results
+# III. Results
 
 
 
@@ -70,7 +70,7 @@ The graphs displayed in figure 3 were plotted to determine what initial conditio
 
 
 
-#IV.Summary
+# IV.Summary
 
 The results obtained in this experiment did not exactly match the desired diagram but did show very similar qualities to it. The text diagram shows a graph that converges toward the approximate value of 6 rad/sec as the mass of the upper pendulum is increased, which matches the obtained diagram. We also see that for both graphs, the system tends to periodically favor a small set of velocities as the mass increases. This pattern of data densities is what leads to the conclusion that the bifurcation diagram displayed in the text is very well plausible given the proper initial conditions. Since the system is extremely sensitive to initial conditions, we can expect other similar bifurcation diagrams for other initial conditions, but we can clearly see from the diagrams in figure 3 that the convergence to a small range of velocities with the increase of upper pendulum mass is not possible for all combinations of initial conditions since there appears to be a limit on how the initial angle values can be related to each other to obtain this type of graph. The specific conditions for the initial values that output a diagram like that of figure 2 are undetermined for this experiment. It is only seen that a plausible relationship between the initial starting angles that gives a fairly similar result is that the angle of the first pendulum should be close to its equilibrium point, while the second angle should start at a large angle.
 
