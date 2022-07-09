@@ -1,7 +1,7 @@
 # Double_Pendulum_Chaotic_System_Analysis
 ## About the Software
 
-The code is an object oriented project where the class in question is designed to simulate simultaneous double pendulum instances with various initial conditions. The code is designed to do in-place analysis where data storage is unecessary, but encapsulates an option to store and process the data post simulation. A sample class based script is also provided in this repository which allows users to upload data into the class and replicate the analysis done in the main simulation. The analysis below is focused on bifurcation diagram replication. Nevertheless, the code is capable of further analysis such as poincare and time series analysis.
+The code is an object oriented project where the class in question is designed to simulate simultaneous double pendulum instances with various initial conditions. The code is designed to do in-place analysis where data storage is unecessary, but encapsulates an option to store and process the data post simulation. A sample class based script is also provided in this repository which allows users to upload data into the class and replicate the analysis done in the main simulation. The analysis below is focused on bifurcation diagram replication. Nevertheless, the code is capable of further analysis such as poincare and time series analysis. On top of all that , a sanity check live simulation of the double pendulum is included in the class as well. Currently we can only visually simulate a single pendulum instance.
 
 # Replicating a Bifurcation Diagram for a Double Pendulum System
 
