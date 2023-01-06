@@ -15,7 +15,7 @@ class DB_Post_Analysis():
             self.DatShape = self.dPendulum_data.shape
             self.Time = np.load(dataSetFile + '/Time_arr.npy')
             
-            # params = [ L1 , L2 , M1 , M2 , M1+M2 , g ]
+        
             self.Params = np.load(dataSetFile + '/Parameters.npy',allow_pickle=True)
             
             
@@ -84,8 +84,8 @@ class DB_Post_Analysis():
     
 
 if __name__ == "__main__":
-        '''
-        dataObj = DB_Post_Analysis('/home/jabejar/Documents/Datasets/ds_000')
+        
+        dataObj = DB_Post_Analysis('/home/jabejar/Documents/GitHub/Double_Pendulum_Simulation_Analysis/Datasets/ds_000')
         a = dataObj.dPendulum_data
         b = dataObj.Time
         c = dataObj.Params
@@ -102,10 +102,10 @@ if __name__ == "__main__":
                 plt.figure(j)
                 plt.plot(freqs,abs(fft[j][i]))
                 plt.xlim(0,5)
-        '''
         
         
-        '''
+        
+        
         dataObj = DB_Post_Analysis('/home/jabejar/Documents/GitHub/Double_Pendulum_Simulation_Analysis/Datasets/ds_005')
         a = dataObj.dPendulum_data
         b = dataObj.Time
@@ -115,11 +115,11 @@ if __name__ == "__main__":
         
         plt.figure()
         
-        # for i in range(len(c[2])):
-        #     plt.subplot(12,12,(i%144)+1)
-        #     plt.plot(poincareData[0][i].T,poincareData[2][i].T,'.',markersize = 1)
+        for i in range(len(c[2])):
+            plt.subplot(12,12,(i%144)+1)
+            plt.plot(poincareData[0][i].T,poincareData[2][i].T,'.',markersize = 1)
         
-        plt.plot(poincareData[0][::20].T,poincareData[2][::20].T,'.',markersize = 1)
+        plt.plot(poincareData[0][::1].T,poincareData[2][::1].T,'.',markersize = 1)
         
         plt.figure()
         plt.plot(c[2],poincareData[2],'.b',markersize = 0.4)
@@ -130,35 +130,10 @@ if __name__ == "__main__":
        
         plt.figure()
         plt.plot(b,a[0,0,:])
-        '''
         
-        
-    
-        dataObj = DB_Post_Analysis('/home/jabejar/Documents/GitHub/Double_Pendulum_Simulation_Analysis/Datasets/ds_005')
-        a = dataObj.dPendulum_data
-        b = dataObj.Time
-        c = dataObj.Params
-        
+   
+      
         (L,S,(U,s,V),iter_,lam,err),org_shape = dataObj.RPCA()
-        
-        ####
-        # incl ={2}
-        
-        
-        # print(incl)
-        # decModes = []
-        # s_temp = s*1
-        # for i in range(s.shape[0]):
-        #     if i not in incl:
-        #         s_temp[i] = 0
-                
-        # temp = []
-        # SS = np.diag(s_temp)
-        # # RecL = np.dot(U, np.dot(S, V))
-        # temp.append(np.dot(U, np.dot(SS, V)))
-        # L = np.array(temp[0])
-        ####
-        
         
         
         
@@ -168,7 +143,7 @@ if __name__ == "__main__":
         plt.figure()
         plt.plot(S[0][::200],S[2][::200],'.',markersize = 0.4)
         
-            
+        
             
             
             
